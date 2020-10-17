@@ -1,0 +1,27 @@
+{% extends "pages/index.html" %} {% load static %} {% block information %}
+<div class="container text-center">
+  {% comment %} <img src="{% static 'images/Logo_IUH.png'%}" alt="Logo" /> {% endcomment %}
+  {% comment %}
+  <h1 class="display-4">Pricing</h1>
+  {% endcomment %}
+  <h1 class="display-4 mt-5">Home Page</h1>
+  <div class="row mt-5 mb-5">
+    <div class="col">
+      <a href="/simpleChart" class="col btn btn-outline-primary"
+        >Simple Chart</a
+      >
+    </div>
+    <div class="col">
+      <a href="/dataAnalysis" class="col btn btn-outline-primary"
+        >Data Analysis</a
+      >
+    </div>
+  </div>
+  <div class="row text-left">
+    <p class="col">Introduction to Project ...........................</p>
+  </div>
+  <div class="row text-left">
+    <p class="col">Team information ...........................</p>
+  </div>
+</div>
+{% endblock information %}

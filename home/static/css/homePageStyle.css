@@ -1,0 +1,11 @@
+div.container.text-center img{
+    width: 400px;
+}
+
+footer.text-center.container-fuild.bg-dark.text-light.mt-5 {
+  padding: 40px 0px;
+}
+
+a.my-0.mr-md-auto.font-weight-normal.display-4 {
+  font-size: 35px;
+}
