@@ -37,7 +37,7 @@ SECRET_KEY = 'wi5%k%64r@gd--^8^!r-iuguqrr!aqj2_@#b#evl+0ypm%bpd-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://radiant-brook-45502.herokuapp.com/']
 
 
 # Application definition
