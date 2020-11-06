@@ -47,22 +47,46 @@
     <div
       class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
     >
-      <a href="/" class="my-0 mr-md-auto font-weight-normal display-4">Data Analysis 1</a>
+      <a href="/" class="my-0 mr-md-auto font-weight-normal display-4"
+        >Data Analysis 1</a
+      >
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="/">Home</a>
-        <a class="p-2 text-dark" href="#">Simple Chart</a>
-        <a class="p-2 text-dark" href="/support">Data Analysis</a>
+        <a class="p-2 text-dark" href="/simple-chart">Simple Chart</a>
+        <a class="p-2 text-dark" href="/data-analysis">Data Analysis</a>
       </nav>
     </div>
 
-    {% block information %}
-
-    {% endblock information %}
-    {% block content %}
-    
-    {% endblock content %}
+    {% block information %} {% endblock information %} {% block content %} {% endblock content %}
     <footer class="text-center container-fuild bg-dark text-light mt-5">
-      <h6 class="display-6">Industrial University Of Ho Chi Minh City - Data Analysis 1</h6>
+      <h6 class="display-6">
+        Industrial University Of Ho Chi Minh City - Data Analysis 1
+      </h6>
     </footer>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyCLkDXB_KlhN3ZkKrRn-9Vcgm34mV_k7aY",
+        authDomain: "iuh-data-analysis-1.firebaseapp.com",
+        databaseURL: "https://iuh-data-analysis-1.firebaseio.com",
+        projectId: "iuh-data-analysis-1",
+        storageBucket: "iuh-data-analysis-1.appspot.com",
+        messagingSenderId: "88998850871",
+        appId: "1:88998850871:web:ab14343017f291589eeab2",
+        measurementId: "G-PCX7RK4BHQ",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
   </body>
 </html>
