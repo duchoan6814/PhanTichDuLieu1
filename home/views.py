@@ -25,4 +25,4 @@ def dataAnalysis(request):
   return render(request, 'pages/dataAnalysis.html')
 
 def simpleChart(request):
-  return render(request, 'components/scatter.html')
+  return render(request, 'components/newCase.html', db.child("data1").get().val())

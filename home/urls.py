@@ -4,5 +4,6 @@ from . import views
 urlpatterns = [
   path('', views.index),
   path('data-analysis', views.dataAnalysis),
-  path('simple-chart', views.simpleChart)
+  path('simple-chart', views.simpleChart),
+  path('simple-chart/newCase', views.simpleChart)
 ]
