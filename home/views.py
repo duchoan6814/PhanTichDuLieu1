@@ -1,5 +1,8 @@
 from django.shortcuts import render
 import pyrebase
+import matplotlib.pyplot as plt
+import io
+import base64, urllib
 
 config = {
     "apiKey": "AIzaSyDoY8ph7q_upbbRWsWQXnqt3y_hvr4_pzE",
@@ -25,4 +28,11 @@ def dataAnalysis(request):
   return render(request, 'pages/dataAnalysis.html')
 
 def simpleChart(request):
-  return render(request, 'components/newCase.html', db.child("data1").get().val())
+  plt.plot(range(10))
+  fig = plt.gcf()
+  buf = io.BytesIO()
+  fig.savefig(buf, format='png')
+  buf.seek(0)
+  string = base64.b64encode(buf.read())
+  uri = urllib.parse.quote(string)
+  return render(request, 'components/newCase.html', {"data": uri})

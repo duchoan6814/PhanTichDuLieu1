@@ -10,14 +10,24 @@
     </nav>
   </div>
   <div class="col-9">
-    <h1 class="display-4 mt-5 text-center">{% block title %} {% endblock title %}</h1>
-      <div class="row mt-5 mb-5">
-    <div class="col">
-      <a href="/" class="col btn btn-outline-primary"
-        >Home Page</a
-      >
+    <h1 class="display-4 mt-5 text-center">
+      {% block title %} {% endblock title %}
+    </h1>
+    <div class="row mt-5 mb-5">
+      <div class="col">
+        <a href="/" class="col btn btn-outline-primary">Home Page</a>
+      </div>
     </div>
-  </div>
+    <div>
+      <div class="row">
+        <img
+          src="data:image/png;base64,{{data}}"
+          alt=""
+          width="700"
+          height="700"
+        />
+      </div>
+    </div>
   </div>
 </div>
 {% endblock information %}
