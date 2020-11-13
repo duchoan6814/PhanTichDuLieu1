@@ -3,6 +3,7 @@ import pyrebase
 import matplotlib.pyplot as plt
 import io
 import base64, urllib
+import pandas as pd
 
 config = {
     "apiKey": "AIzaSyDoY8ph7q_upbbRWsWQXnqt3y_hvr4_pzE",
@@ -19,7 +20,18 @@ firebase = pyrebase.initialize_app(config)
 
 db = firebase.database()
 
+df = pd.DataFrame(db.child("data3").get().val())
+
 print(type(db.child("data1").get().val()))
+
+def renderMatplotlib(plot):
+  fig = plot.gcf()
+  buf = io.BytesIO()
+  fig.savefig(buf, format='png')
+  buf.seek(0)
+  string = base64.b64encode(buf.read())
+  return urllib.parse.quote(string)
+
 # Create your views here.
 def index(request):
   return render(request, 'pages/homePage.html')
@@ -28,11 +40,6 @@ def dataAnalysis(request):
   return render(request, 'pages/dataAnalysis.html')
 
 def simpleChart(request):
-  plt.plot(range(10))
-  fig = plt.gcf()
-  buf = io.BytesIO()
-  fig.savefig(buf, format='png')
-  buf.seek(0)
-  string = base64.b64encode(buf.read())
-  uri = urllib.parse.quote(string)
+  df.boxplot(column='new_cases', vert=False)
+  uri = renderMatplotlib(plt)
   return render(request, 'components/newCase.html', {"data": uri})
