@@ -1,0 +1,17 @@
+{% extends "pages/simpleChart.html" %}
+{% block title %}
+  Số Người Mắc Và Chết Theo Tháng
+{% endblock title %}
+{% block contentChart %}
+  <div>
+    <div class="row">
+    <img
+      class="mx-auto"
+      src="data:image/png;base64,{{data.macVaChetTheoThang}}"
+      alt=""
+      width="50%"
+      height="50%"
+    />
+  </div>
+  </div>
+{% endblock contentChart %}

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import io
 import base64, urllib
 import pandas as pd
+from datetime import datetime
 
 config = {
     "apiKey": "AIzaSyDoY8ph7q_upbbRWsWQXnqt3y_hvr4_pzE",
@@ -21,6 +22,9 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 df = pd.DataFrame(db.child("data3").get().val())
+
+for i in range(len(df)):
+    df.at[i, 'month'] = datetime.strptime(df.at[i, 'date'], '%Y-%m-%d').month
 
 print(type(db.child("data1").get().val()))
 
@@ -107,3 +111,24 @@ def newDeath(request):
 
   data = {"uri": uri, "describe": describe, "tanso": tanso, "tanSoTichLuy": tanSoTichLuy, "tanXuat": tanXuat, "tanXuatTichLuy": tanXuatTichLuy}
   return render(request, 'components/newDead.html', {"data": data})
+
+def tileCaseWithDeath(request):
+  plt.clf()
+  plt.pie([df['new_cases'].sum(), df['new_deaths'].sum()], labels=["Số ca mắc", "Tử vong"], autopct='%1.1f%%', colors=[ "#21bf73", "#fd5e53"])
+  plt.title("Biểu đồ tỉ lệ ca mắc mới và tử vong do COVID-19 tại các bang ở Mỹ")
+  tileCaMacVaChet = renderMatplotlib(plt)
+  data = {"tileCaMacVaChet": tileCaMacVaChet}
+  return render(request, 'components/tiLeCasesAndDeaths.html', {"data": data})
+
+def macVaChetTheoThang(request):
+  plt.clf()
+  
+  a = df.groupby('month')['new_cases', 'new_deaths'].sum().reset_index()
+  plt.plot(a['month'].tolist(), a['new_cases'].tolist())
+  plt.plot(a['month'].tolist(), a['new_deaths'].tolist())
+  plt.title("Tổng số lượng người chết và mắc bệnh theo tháng")
+  plt.xlabel("Tháng")
+  plt.ylabel("Số ca")
+  macVaChetTheoThang = renderMatplotlib(plt)
+  data = {"macVaChetTheoThang": macVaChetTheoThang}
+  return render(request, 'components/macVaChetTheoThang.html', {"data": data})

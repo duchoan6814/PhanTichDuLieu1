@@ -57,7 +57,7 @@
       </nav>
     </div>
 
-    {% block information %} {% endblock information %} {% block content %} {% endblock content %}
+    {% block information %} {% endblock information %} {% block content %} {%endblock content %}
     <footer class="text-center container-fuild bg-dark text-light mt-5">
       <h6 class="display-6">
         Industrial University Of Ho Chi Minh City - Data Analysis 1
@@ -87,6 +87,12 @@
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(function () {
+        $("#baoCaoPage").load("{% static 'html/bao_cao_n05.html' %}");
+      });
     </script>
   </body>
 </html>

@@ -1,0 +1,14 @@
+{% extends "pages/simpleChart.html" %} {% block title %} Tỉ Lệ Ca Mắc Mới Với Số
+Người chết do COVID-19 tại Mỹ {% endblock title %} {% block contentChart %}
+<div>
+  <div class="row">
+    <img
+      class="mx-auto"
+      src="data:image/png;base64,{{data.tileCaMacVaChet}}"
+      alt=""
+      width="50%"
+      height="50%"
+    />
+  </div>
+</div>
+{% endblock contentChart %}

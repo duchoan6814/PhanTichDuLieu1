@@ -1,4 +1,4 @@
-{% extends "pages/index.html" %} {% block information %}
+{% extends "pages/index.html" %} {% load static %} {% block information %}
 <div class="container text-center">
   {% comment %} <img src="{% static 'images/Logo_IUH.png'%}" alt="Logo" /> {%
   endcomment %} {% comment %}
@@ -12,8 +12,8 @@
       >
     </div>
   </div>
-  <div class="row text-left">
-    <p class="col">Data Analysis Report ...........................</p>
+  <div id="baoCaoPage">
+    
   </div>
 </div>
 {% endblock information %}
