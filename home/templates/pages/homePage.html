@@ -1,7 +1,7 @@
 {% extends "pages/index.html" %} {% load static %} {% block information %}
 <div class="container text-center">
-  {% comment %} <img src="{% static 'images/Logo_IUH.png'%}" alt="Logo" /> {% endcomment %}
-  {% comment %}
+  {% comment %} <img src="{% static 'images/Logo_IUH.png'%}" alt="Logo" /> {%
+  endcomment %} {% comment %}
   <h1 class="display-4">Pricing</h1>
   {% endcomment %}
   <h1 class="display-4 mt-5">Home Page</h1>
@@ -18,10 +18,59 @@
     </div>
   </div>
   <div class="row text-left">
-    <p class="col">Tên đề tài: Johns Hopkins COVID-19 Case Tracker</p>
+    <h1 class="col-12">Giới thiệu đề tài</h1>
+    <iframe
+      class="col-12"
+      title="USA counties (2018) choropleth map Mapping COVID-19 cases by county"
+      aria-describedby=""
+      id="datawrapper-chart-nRyaf"
+      src="https://datawrapper.dwcdn.net/nRyaf/10/"
+      scrolling="no"
+      frameborder="0"
+      style="width: 0; min-width: 100% !important"
+      height="100"
+    ></iframe>
+    <script type="text/javascript">
+      (function () {
+        "use strict";
+        window.addEventListener("message", function (event) {
+          if (typeof event.data["datawrapper-height"] !== "undefined") {
+            for (var chartId in event.data["datawrapper-height"]) {
+              var iframe =
+                document.getElementById("datawrapper-chart-" + chartId) ||
+                document.querySelector("iframe[src*='" + chartId + "']");
+              if (!iframe) {
+                continue;
+              }
+              iframe.style.height =
+                event.data["datawrapper-height"][chartId] + "px";
+            }
+          }
+        });
+      })();
+    </script>
+    <p class="col-12 mt-3">
+      - Tên đề tài: <b>Johns Hopkins COVID-19 Case Tracker</b>
+    </p>
+    <p class="col-12">
+      - Mổ tả: Dữ liệu những ca mắc và ca tử vong của COVID-19 ở cấp quận của
+      Johns Hopkins kết hợp với dân số và tỉ lệ trên 100.000
+    </p>
   </div>
-  <div class="row text-left">
-    <p class="col">Nhóm: N05</p>
+  <div class="text-left mt-5">
+    <div class="row">
+      <h1 class="col-12">Giới thiệu nhóm</h1>
+    </div>
+    <div class="row">
+      <h5 class="col-12">Nhóm: N05</h5>
+    </div>
+    <div class="row mt-3">
+      <p class="col-12"> - Hồng suboi <b>(Nhóm trưởng)</b> - 18054321</p>
+      <p class="col-12"> - Nguyễn Thị Quỳnh Mai - 18054321</p>
+      <p class="col-12"> - Trương Đức Hoàn - 18054321</p>
+      <p class="col-12"> - Dương Anh Tú - 18054321</p>
+      <p class="col-12"> - Phạm Xuân Vũ - 18054321</p>
+    </div>
   </div>
 </div>
 {% endblock information %}
