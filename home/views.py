@@ -39,40 +39,41 @@ def index(request):
 def dataAnalysis(request):
   return render(request, 'pages/dataAnalysis.html')
 
-def boxPlot():
-  return df.boxplot(column='new_cases', vert=False)
+def boxPlot(str):
+  return df.boxplot(column=str, vert=False)
 
-def tanSo():
-  return df.plot(x='date', y='new_cases', title="Biểu đồ tần số ca mắc mới theo thời gian", rot=20)
+def tanSo(x, y, title, rot):
+  return df.plot(x=x, y=y, title=title, rot=rot)
 
-def tanSoTichLuyPlot():
-  df['tanSoTichLuyNewCase'] = df['new_cases'].cumsum()
-  return df.plot(x='date', y='tanSoTichLuyNewCase', rot=20, title="Biểu đồ tần số tích lũy ca mắc mới theo thời gian")
+def tanSoTichLuyPlot(tenCotTichLuyMoi, tenCotTanSo, x, y, rot, title):
+  df[tenCotTichLuyMoi] = df[tenCotTanSo].cumsum()
+  return df.plot(x=x, y=y, rot=rot, title=title)
 
-def tanXuatPlot():
-  sum = df['new_cases'].sum()
+def tanXuatPlot(cotCanTinh, cotMoi, x, y, rot, title):
+  sum = df[cotCanTinh].sum()
   for i in range(len(df)):
-    df.at[i, 'tanXuat'] = (df.at[i, 'new_cases']/sum)*100
-  return df.plot(x='date', y='tanXuat', rot=20, title="Biểu đồ tần xuất các ca mắc mới theo thời gian")
+    df.at[i, cotMoi] = (df.at[i, cotCanTinh]/sum)*100
+  return df.plot(x=x, y=y, rot=20, title=title)
 
-def tanXuatTichLuyPlot():
-  df['tanXuatTichLuy'] = df['tanXuat'].cumsum()
-  return df.plot(x='date', y='tanXuatTichLuy', rot=20, title="Biểu đồ tần xuất tích lũy ca mắc mới theo thời gian")
+def tanXuatTichLuyPlot(cotMoi, cotCanTinh, x, y, rot, title):
+  df[cotMoi] = df[cotCanTinh].cumsum()
+  return df.plot(x=x, y=y, rot=rot, title=title)
 
 def simpleChart(request):
-  boxPlot()
+  plt.clf()
+  boxPlot('new_cases')
   uri = renderMatplotlib(plt)
 
-  tanSo()
+  tanSo('date', 'new_cases', 'Biểu đồ tần số ca mắc mới theo thời gian', 20)
   tanso = renderMatplotlib(plt)
 
-  tanSoTichLuyPlot()
+  tanSoTichLuyPlot('tanSoTichLuyNewCase', 'new_cases', 'date', 'tanSoTichLuyNewCase', 20, "Biểu đồ tần số tích lũy ca mắc mới theo thời gian")
   tanSoTichLuy = renderMatplotlib(plt)
 
-  tanXuatPlot()
+  tanXuatPlot('new_cases', 'tanXuat', 'date', 'tanXuat', 20, "Biểu đồ tần xuất các ca mắc mới theo thời gian")
   tanXuat = renderMatplotlib(plt)
 
-  tanXuatTichLuyPlot()
+  tanXuatTichLuyPlot('tanXuatTichLuy', 'tanXuat', 'date', 'tanXuatTichLuy', 20, 'Biểu đồ tần xuất tích lũy ca mắc mới theo thời gian')
   tanXuatTichLuy = renderMatplotlib(plt)
 
   describe = df['new_cases'].describe()
@@ -80,3 +81,29 @@ def simpleChart(request):
   data = {"uri": uri, "describe": describe, "tanso": tanso, "tanSoTichLuy": tanSoTichLuy, "tanXuat": tanXuat, "tanXuatTichLuy": tanXuatTichLuy}
 
   return render(request, 'components/newCase.html', {"data": data})
+
+def newDeathsBoxPlot():
+  return df.boxplot(column='new_deaths', vert=False)
+
+def newDeath(request):
+  plt.clf()
+
+  boxPlot('new_deaths')
+  uri = renderMatplotlib(plt)
+
+  tanSo('date', 'new_deaths', 'Biểu đồ tần số người chết theo thời gian', 20)
+  tanso = renderMatplotlib(plt)
+
+  tanSoTichLuyPlot('tanSoTichLuyNewDeaths', 'new_deaths', 'date', 'tanSoTichLuyNewDeaths', 20, "Biểu đồ tần số tích lũy số người chết theo thời gian")
+  tanSoTichLuy = renderMatplotlib(plt)
+
+  tanXuatPlot('new_deaths', 'tanXuatDeaths', 'date', 'tanXuatDeaths', 20, "Biểu đồ tần xuất số người chết mới theo thời gian")
+  tanXuat = renderMatplotlib(plt)
+
+  tanXuatTichLuyPlot('tanXuatTichLuyDeaths', 'tanXuatDeaths', 'date', 'tanXuatTichLuyDeaths', 20, 'Biểu đồ tần xuất tích lũy ca mắc mới theo thời gian')
+  tanXuatTichLuy = renderMatplotlib(plt)
+
+  describe = df['new_deaths'].describe()
+
+  data = {"uri": uri, "describe": describe, "tanso": tanso, "tanSoTichLuy": tanSoTichLuy, "tanXuat": tanXuat, "tanXuatTichLuy": tanXuatTichLuy}
+  return render(request, 'components/newDead.html', {"data": data})

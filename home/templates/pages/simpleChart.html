@@ -6,6 +6,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/simple-chart/newCase"> New Case </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/simple-chart/newDeath"> New Death </a>
+        </li>
       </ul>
     </nav>
   </div>
@@ -18,53 +21,9 @@
         <a href="/" class="col btn btn-outline-primary">Home Page</a>
       </div>
     </div>
-    <div>
-      <div class="row">
-        <img
-          class="mx-auto"
-          src="data:image/png;base64,{{data.uri}}"
-          alt=""
-          width="50%"
-          height="50%"
-        />
-      </div>
-      <div class="row">
-        <img
-          class="mx-auto"
-          src="data:image/png;base64,{{data.tanso}}"
-          alt=""
-          width="50%"
-          height="50%"
-        />
-      </div>
-      <div class="row">
-        <img
-          class="mx-auto"
-          src="data:image/png;base64,{{data.tanSoTichLuy}}"
-          alt=""
-          width="50%"
-          height="50%"
-        />
-      </div>
-      <div class="row">
-        <img
-          class="mx-auto"
-          src="data:image/png;base64,{{data.tanXuat}}"
-          alt=""
-          width="50%"
-          height="50%"
-        />
-      </div>
-      <div class="row">
-        <img
-          class="mx-auto"
-          src="data:image/png;base64,{{data.tanXuatTichLuy}}"
-          alt=""
-          width="50%"
-          height="50%"
-        />
-      </div>
-    </div>
+    {% block contentChart %}
+    
+    {% endblock contentChart %}
   </div>
 </div>
 {% endblock information %}
