@@ -1,49 +1,160 @@
 {% extends "pages/simpleChart.html" %} {% block title %} Trường Hợp Tử Vong {% endblock title %} {% block contentChart %}
 <div>
   <div class="row">
+    <h3 class="col-12">Bảng miêu tả độ tập trung dữ liệu người chết</h3>
+    <table class="table table-striped col-12">
+      <thead>
+        <tr>
+          <th scope="col">index</th>
+          <th scope="col">describe</th>
+          <th scope="col">values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>count</td>
+          <td>{{data.describe.count}}</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>mean</td>
+          <td>{{data.describe.mean}}</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>min</td>
+          <td>{{data.describe.min}}</td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td>25%</td>
+          <td>{{data.describe.haiNam}}</td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td>50%</td>
+          <td>{{data.describe.namMuoi}}</td>
+        </tr>
+        <tr>
+          <th scope="row">6</th>
+          <td>75%</td>
+          <td>{{data.describe.bayNam}}</td>
+        </tr>
+        <tr>
+          <th scope="row">7</th>
+          <td>max</td>
+          <td>{{data.describe.max}}</td>
+        </tr>
+        <tr>
+          <th scope="row">8</th>
+          <td>median</td>
+          <td>{{data.describe.median}}</td>
+        </tr>
+        <tr>
+          <th scope="row">9</th>
+          <td>mode</td>
+          <td>{{data.describe.mode}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <h3 class="col-12">Bảng miêu tả độ phân tán dữ liệu người chết</h3>
+    <table class="table table-striped col-12">
+      <thead>
+        <tr>
+          <th scope="col">index</th>
+          <th scope="col">describe</th>
+          <th scope="col">values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>IQR</td>
+          <td>{{data.doPhanTan.IQR}}</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>variance</td>
+          <td>{{data.doPhanTan.var}}</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>std</td>
+          <td>{{data.doPhanTan.std}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <h3 class="col-12">Biểu đồ box-plot dữ liệu người chết</h3>
     <img
       class="mx-auto"
-      src="data:image/png;base64,{{data.uri}}"
+      src="data:image/png;base64,{{data.uri | safe}}"
       alt=""
       width="50%"
       height="50%"
     />
   </div>
   <div class="row">
+    <h3 class="col-12">Khảo sát dạng phân phối</h3>
+    <ul>
+      <li>
+        Theo công thức ta có:
+        <ul>
+          <li>Mode > Median > Mean ==> Lệch Trái</li>
+          <li>Mode = Median = Mean ==> Đối xứng</li>
+          <li>Mode < Median < Mean ==> Lệch Phải</li>
+        </ul>
+      </li>
+      <li>==> ta kết luận dạng phân phối lệch phải</li>
+    </ul>
+  </div>
+  <div class="row">
+    <h3 class="col-12">Mức độ</h3>
+    <table class="table table-striped col-12">
+      <thead>
+        <tr>
+          <th scope="col">index</th>
+          <th scope="col">describe</th>
+          <th scope="col">values</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>knewness</td>
+          <td>{{data.mucDo.knewness}}</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>kurtosis</td>
+          <td>{{data.mucDo.kurtosis}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <h3 class="col-12">Biểu đồ histogram dữ liệu người chết</h3>
     <img
       class="mx-auto"
-      src="data:image/png;base64,{{data.tanso}}"
+      src="data:image/png;base64,{{data.hist | safe}}"
       alt=""
       width="50%"
       height="50%"
     />
   </div>
   <div class="row">
+    <h3 class="col-12">Kiểm định</h3>
     <img
       class="mx-auto"
-      src="data:image/png;base64,{{data.tanSoTichLuy}}"
+      src="data:image/png;base64,{{data.kiemDinh | safe}}"
       alt=""
       width="50%"
       height="50%"
     />
   </div>
-  <div class="row">
-    <img
-      class="mx-auto"
-      src="data:image/png;base64,{{data.tanXuat}}"
-      alt=""
-      width="50%"
-      height="50%"
-    />
-  </div>
-  <div class="row">
-    <img
-      class="mx-auto"
-      src="data:image/png;base64,{{data.tanXuatTichLuy}}"
-      alt=""
-      width="50%"
-      height="50%"
-    />
-  </div>
-  <div>{% endblock contentChart %}</div>
-</div>
+</div>{% endblock contentChart %}

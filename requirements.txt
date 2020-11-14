@@ -15,6 +15,7 @@ matplotlib==3.3.3
 numpy==1.19.4
 oauth2client==3.0.0
 pandas==1.1.4
+patsy==0.5.1
 Pillow==8.0.1
 protobuf==3.14.0rc2
 psycopg2-binary==2.8.6
@@ -31,8 +32,10 @@ pytz==2020.1
 requests==2.11.1
 requests-toolbelt==0.7.0
 rsa==4.6
+scipy==1.5.4
 six==1.15.0
 sqlparse==0.4.1
+statsmodels==0.12.1
 toml==0.10.2
 whitenoise==5.2.0
 wrapt==1.12.1

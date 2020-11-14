@@ -5,6 +5,10 @@ import io
 import base64, urllib
 import pandas as pd
 from datetime import datetime
+from html import unescape
+from numpy.random import seed
+from numpy.random import randn
+from statsmodels.graphics.gofplots import qqplot
 
 config = {
     "apiKey": "AIzaSyDoY8ph7q_upbbRWsWQXnqt3y_hvr4_pzE",
@@ -63,26 +67,63 @@ def tanXuatTichLuyPlot(cotMoi, cotCanTinh, x, y, rot, title):
   df[cotMoi] = df[cotCanTinh].cumsum()
   return df.plot(x=x, y=y, rot=rot, title=title)
 
+def interquartile_range(column):
+  Q1 = df[column].quantile(0.25)
+  Q3 = df[column].quantile(0.75)
+  IQR = Q3 - Q1
+  return IQR
+
+
+  # ===================================================================
+
 def simpleChart(request):
   plt.clf()
+
   boxPlot('new_cases')
   uri = renderMatplotlib(plt)
 
-  tanSo('date', 'new_cases', 'Biểu đồ tần số ca mắc mới theo thời gian', 20)
-  tanso = renderMatplotlib(plt)
-
-  tanSoTichLuyPlot('tanSoTichLuyNewCase', 'new_cases', 'date', 'tanSoTichLuyNewCase', 20, "Biểu đồ tần số tích lũy ca mắc mới theo thời gian")
-  tanSoTichLuy = renderMatplotlib(plt)
-
-  tanXuatPlot('new_cases', 'tanXuat', 'date', 'tanXuat', 20, "Biểu đồ tần xuất các ca mắc mới theo thời gian")
-  tanXuat = renderMatplotlib(plt)
-
-  tanXuatTichLuyPlot('tanXuatTichLuy', 'tanXuat', 'date', 'tanXuatTichLuy', 20, 'Biểu đồ tần xuất tích lũy ca mắc mới theo thời gian')
-  tanXuatTichLuy = renderMatplotlib(plt)
-
   describe = df['new_cases'].describe()
+  describes = {
+    "count": describe['count'],
+    "mean": describe['mean'],
+    "std": describe['std'],
+    "min": describe['min'],
+    "haiNam": describe['25%'],
+    "namMuoi": describe['50%'],
+    "bayNam": describe['75%'],
+    "max": describe['max'],
+    "median": df['new_cases'].median(),
+    "mode": df['new_cases'].mode()
+  }
 
-  data = {"uri": uri, "describe": describe, "tanso": tanso, "tanSoTichLuy": tanSoTichLuy, "tanXuat": tanXuat, "tanXuatTichLuy": tanXuatTichLuy}
+  doPhanTan = {
+    "IQR": interquartile_range('new_cases'),
+    "var": df['new_cases'].var(),
+    "std": df['new_cases'].std(),
+  }
+
+  mucDo = {
+    "knewness": df['new_cases'].skew(),
+    "kurtosis": df['new_cases'].kurtosis()
+  }
+
+  plt.clf()
+  fig, ax = plt.subplots()
+  df['new_cases'].plot.kde(ax=ax, legend=False, title='Histogram new_cases')
+  df['new_cases'].plot.hist(density=True, ax=ax,color ='red')
+  ax.set_ylabel('new_cases')
+  ax.grid(axis='y')
+  ax.set_facecolor('#d8dcd0')
+  hist = renderMatplotlib(plt)
+
+  plt.clf()
+  x= df['new_cases']
+  data=  randn(len(x))
+  qqplot(data,line ='s')
+  plt.title('Biểu đồ phân phối chuẩn của new_cases')
+  kiemDinh = renderMatplotlib(plt)
+
+  data = {"uri": uri, "describe": describes, "doPhanTan": doPhanTan, "mucDo": mucDo, "hist": hist, "kiemDinh": kiemDinh}
 
   return render(request, 'components/newCase.html', {"data": data})
 
@@ -95,21 +136,48 @@ def newDeath(request):
   boxPlot('new_deaths')
   uri = renderMatplotlib(plt)
 
-  tanSo('date', 'new_deaths', 'Biểu đồ tần số người chết theo thời gian', 20)
-  tanso = renderMatplotlib(plt)
-
-  tanSoTichLuyPlot('tanSoTichLuyNewDeaths', 'new_deaths', 'date', 'tanSoTichLuyNewDeaths', 20, "Biểu đồ tần số tích lũy số người chết theo thời gian")
-  tanSoTichLuy = renderMatplotlib(plt)
-
-  tanXuatPlot('new_deaths', 'tanXuatDeaths', 'date', 'tanXuatDeaths', 20, "Biểu đồ tần xuất số người chết mới theo thời gian")
-  tanXuat = renderMatplotlib(plt)
-
-  tanXuatTichLuyPlot('tanXuatTichLuyDeaths', 'tanXuatDeaths', 'date', 'tanXuatTichLuyDeaths', 20, 'Biểu đồ tần xuất tích lũy ca mắc mới theo thời gian')
-  tanXuatTichLuy = renderMatplotlib(plt)
-
   describe = df['new_deaths'].describe()
+  describes = {
+    "count": describe['count'],
+    "mean": describe['mean'],
+    "std": describe['std'],
+    "min": describe['min'],
+    "haiNam": describe['25%'],
+    "namMuoi": describe['50%'],
+    "bayNam": describe['75%'],
+    "max": describe['max'],
+    "median": df['new_deaths'].median(),
+    "mode": df['new_deaths'].mode()
+  }
 
-  data = {"uri": uri, "describe": describe, "tanso": tanso, "tanSoTichLuy": tanSoTichLuy, "tanXuat": tanXuat, "tanXuatTichLuy": tanXuatTichLuy}
+  doPhanTan = {
+    "IQR": interquartile_range('new_deaths'),
+    "var": df['new_deaths'].var(),
+    "std": df['new_deaths'].std(),
+  }
+
+  mucDo = {
+    "knewness": df['new_deaths'].skew(),
+    "kurtosis": df['new_deaths'].kurtosis()
+  }
+
+  plt.clf()
+  fig, ax = plt.subplots()
+  df['new_deaths'].plot.kde(ax=ax, legend=False, title='Histogram new_deaths')
+  df['new_deaths'].plot.hist(density=True, ax=ax,color ='red')
+  ax.set_ylabel('new_deaths')
+  ax.grid(axis='y')
+  ax.set_facecolor('#d8dcd0')
+  hist = renderMatplotlib(plt)
+
+  plt.clf()
+  x= df['new_deaths']
+  data=  randn(len(x))
+  qqplot(data,line ='s')
+  plt.title('Biểu đồ phân phối chuẩn của new_deaths')
+  kiemDinh = renderMatplotlib(plt)
+
+  data = {"uri": uri, "describe": describes, "doPhanTan": doPhanTan, "mucDo": mucDo, "hist": hist, "kiemDinh": kiemDinh}
   return render(request, 'components/newDead.html', {"data": data})
 
 def tileCaseWithDeath(request):
